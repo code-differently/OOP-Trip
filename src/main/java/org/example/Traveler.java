@@ -3,6 +3,8 @@ package org.example;
 import org.example.exception.InsufficientFundsException;
 import org.example.exception.TravelerRejectionException;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Traveler {
@@ -64,6 +66,7 @@ public class Traveler {
 	public void setPlacesVisited(List<Destination> placesVisited) {
 		this.placesVisited = placesVisited;
 	}
+
 
 	public void bookATrip(Destination destination)throws TravelerRejectionException {
 
