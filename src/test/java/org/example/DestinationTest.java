@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -94,7 +96,12 @@ class DestinationTest {
 		traveler.setNoFlyList(false);
 		covidResults.generateTest();
 		traveler.setCovidResults(covidResults);
-		System.out.println(traveler.getCovidResults().getCovidPositive());
+		destination.setRequireCovidTest(true);
+
+		//automatically enter 5 as my input
+		String input = "5";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
 
 		Assertions.assertThrows(InfectTestDateException.class,
 				()->destination.allowToVisit(traveler));

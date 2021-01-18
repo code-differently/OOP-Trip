@@ -8,6 +8,7 @@ import org.example.exception.NoFlyListException;
 
 
 import java.util.Date;
+import java.util.Scanner;
 
 public class Destination {
 	private String name;
@@ -50,7 +51,21 @@ public class Destination {
 		this.requireCovidTest = requireCovidTest;
 	}
 
+	private void testDateValidation(Traveler traveler) throws InfectTestDateException{
+		Scanner scanner = new Scanner(System.in);
+		DateAddition dateAddition = new CovidResults();
+		Date currentDate = traveler.getCovidResults().getDate();
+		Date expiredDate = traveler.getCovidResults().getDate();
+		System.out.println("How many days since your last covid test?");
+		int newDate = scanner.nextInt();
+		scanner.close();
+		currentDate = dateAddition.addDays(currentDate,newDate);
+		expiredDate = dateAddition.addDays(expiredDate, 3);
 
+		if (currentDate.after(expiredDate)) {
+			throw new InfectTestDateException();
+		}
+	}
 
 	public void allowToVisit(Traveler traveler) throws InsufficientFundsException, NoFlyListException, InfectionException, InfectTestDateException {
 
@@ -63,11 +78,8 @@ public class Destination {
 			if(traveler.getCovidResults().getCovidPositive()){
 				throw  new InfectionException();
 			}
-
-			Date currentDate = traveler.getCovidResults().getDate();
-			Date expiredDate = traveler.getCovidResults().addDays();
-			if( currentDate.after(expiredDate)){
-				throw new InfectTestDateException();
+			if(requireCovidTest) {
+				testDateValidation(traveler);
 			}
 	}
 }
