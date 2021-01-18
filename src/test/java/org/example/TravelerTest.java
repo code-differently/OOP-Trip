@@ -38,7 +38,10 @@ public class TravelerTest {
 
 	@Test
 	public void setCovidResults() {
-
+		CovidResults covidResults = new CovidResults(2021,0,11);
+		traveler.setCovidResults(covidResults);
+		Object actual = traveler.getCovidResults();
+		Assert.assertEquals(covidResults, actual);
 	}
 
 	@Test
