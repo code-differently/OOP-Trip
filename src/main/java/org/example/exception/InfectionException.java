@@ -1,2 +1,4 @@
-package org.example.exception;public class InfectionException {
+package org.example.exception;
+
+public class InfectionException extends Exception{
 }

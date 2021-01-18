@@ -1,2 +1,4 @@
-package org.example.exception;public class InfectTestDateException {
+package org.example.exception;
+
+public class InfectTestDateException extends Exception{
 }
