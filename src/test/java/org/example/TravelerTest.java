@@ -3,9 +3,13 @@ package org.example;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 public class TravelerTest {
 
 	private Traveler traveler = new Traveler();
+	private Destination destination1 = new Destination();
+	private Destination destination2 = new Destination();
 
 	@Test
 	public void setName() {
@@ -32,11 +36,6 @@ public class TravelerTest {
 	}
 
 	@Test
-	public void setPlacesVisited() {
-
-	}
-
-	@Test
 	public void setCovidResults() {
 		CovidResults covidResults = new CovidResults(2021,0,11);
 		traveler.setCovidResults(covidResults);
@@ -45,6 +44,25 @@ public class TravelerTest {
 	}
 
 	@Test
+	public void setIsNoFlyList(){
+		traveler.setNoFlyList(true);
+		boolean actual = traveler.isNoFlyList();
+		Assert.assertTrue(actual);
+	}
+
+	@Test
+	public void setPlacesVisited() {
+		ArrayList<Destination> places = new ArrayList<>();
+		places.add(destination1);
+		places.add(destination2);
+		traveler.setPlacesVisited(places);
+		int expected = places.size();
+		int actual = traveler.getPlacesVisited().size();
+		Assert.assertEquals(expected,actual);
+	}
+
+	@Test
 	public void bookATrip() {
+
 	}
 }

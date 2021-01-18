@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.exception.InsufficientFundsException;
+import org.example.exception.TravelerRejectionException;
 
 import java.util.List;
 
@@ -10,13 +11,12 @@ public class Traveler {
 	private Double money;
 	private List<Destination> placesVisited;
 	private CovidResults covidResults;
+	private boolean noFlyList;
+
 
 	Traveler(){
 	}
 
-	public void bookATrip(Destination destination)throws InsufficientFundsException {
-
-	}
 
 	public String getName() {
 		return name;
@@ -42,6 +42,21 @@ public class Traveler {
 		this.money = money;
 	}
 
+	public CovidResults getCovidResults() {
+		return covidResults;
+	}
+
+	public void setCovidResults(CovidResults covidResults) {
+		this.covidResults = covidResults;
+	}
+
+	public boolean isNoFlyList() {
+		return noFlyList;
+	}
+
+	public void setNoFlyList(boolean noFlyList) {
+		this.noFlyList = noFlyList;
+	}
 	public List<Destination> getPlacesVisited() {
 		return placesVisited;
 	}
@@ -50,11 +65,7 @@ public class Traveler {
 		this.placesVisited = placesVisited;
 	}
 
-	public CovidResults getCovidResults() {
-		return covidResults;
-	}
+	public void bookATrip(Destination destination)throws TravelerRejectionException {
 
-	public void setCovidResults(CovidResults covidResults) {
-		this.covidResults = covidResults;
 	}
 }

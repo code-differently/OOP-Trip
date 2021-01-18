@@ -1,6 +1,14 @@
 package org.example;
 
 
+import org.example.exception.InfectTestDateException;
+import org.example.exception.InfectionException;
+import org.example.exception.InsufficientFundsException;
+import org.example.exception.NoFlyListException;
+
+
+import java.util.Date;
+
 public class Destination {
 	private String name;
 	private Double distance;
@@ -9,8 +17,6 @@ public class Destination {
 
 	Destination(){
 	}
-
-	public void allowToVisit(){}
 
 	public String getName() {
 		return name;
@@ -42,5 +48,26 @@ public class Destination {
 
 	public void setRequireCovidTest(Boolean requireCovidTest) {
 		this.requireCovidTest = requireCovidTest;
+	}
+
+
+
+	public void allowToVisit(Traveler traveler) throws InsufficientFundsException, NoFlyListException, InfectionException, InfectTestDateException {
+
+			if(traveler.getMoney() < (costPerMile*distance)) {
+				throw new InsufficientFundsException();
+			}
+			if(traveler.isNoFlyList()){
+				throw  new NoFlyListException();
+			}
+			if(traveler.getCovidResults().getCovidPositive()){
+				throw  new InfectionException();
+			}
+
+			Date currentDate = traveler.getCovidResults().getDate();
+			Date expiredDate = traveler.getCovidResults().addDays();
+			if( currentDate.after(expiredDate)){
+				throw new InfectTestDateException();
+			}
 	}
 }
