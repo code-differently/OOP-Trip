@@ -9,22 +9,19 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CovidResultsTest {
-	private CovidResults covidResults = new CovidResults();
+	private CovidResults covidResults = new CovidResults(2021,0,10);
 
 	@Test
 	public void getDateTest(){
-		Date date = new Date(2021, 0, 10);
-		covidResults.setDate(date);
-		Object actual = covidResults.getDate();
+		Date actual = covidResults.getDate();
+		Date expected = new Date(2021,0,10);
 
-		Assert.assertEquals(date,actual);
+		Assert.assertEquals(expected,actual);
 	}
 
 	@Test
-	public void setCovidPositive() {
-		covidResults.setCovidPositive(true);
-		boolean actual = covidResults.getCovidPositive();
-
-		Assert.assertTrue(actual);
+	public void testGenerateTest(){
+		covidResults.generateTest();
+		Assert.assertNotNull(covidResults.getCovidPositive());
 	}
 }
