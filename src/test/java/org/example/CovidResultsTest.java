@@ -24,4 +24,10 @@ public class CovidResultsTest {
 		covidResults.generateTest();
 		Assert.assertNotNull(covidResults.getCovidPositive());
 	}
+
+	@Test
+	public void testAddDays(){
+		Date expected = covidResults.addDays(covidResults.getDate(),3);
+		Assert.assertTrue(covidResults.getDate().before(expected));
+	}
 }
