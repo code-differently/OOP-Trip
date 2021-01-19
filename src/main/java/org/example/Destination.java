@@ -15,6 +15,7 @@ public class Destination {
 	private Double distance;
 	private Double costPerMile;
 	private Boolean requireCovidTest;
+	Boolean isAllowed = false;
 
 	Destination(){
 	}
@@ -51,6 +52,7 @@ public class Destination {
 		this.requireCovidTest = requireCovidTest;
 	}
 
+
 	private void testDateValidation(Traveler traveler) throws InfectTestDateException{
 		Scanner scanner = new Scanner(System.in);
 		DateAddition dateAddition = new CovidResults();
@@ -69,17 +71,20 @@ public class Destination {
 
 	public void allowToVisit(Traveler traveler) throws InsufficientFundsException, NoFlyListException, InfectionException, InfectTestDateException {
 
-			if(traveler.getMoney() < (costPerMile*distance)) {
-				throw new InsufficientFundsException();
-			}
-			if(traveler.isNoFlyList()){
-				throw  new NoFlyListException();
-			}
-			if(traveler.getCovidResults().getCovidPositive()){
-				throw  new InfectionException();
-			}
-			if(requireCovidTest) {
-				testDateValidation(traveler);
-			}
+		if (traveler.getMoney() < (costPerMile * distance)) {
+			throw new InsufficientFundsException();
+		}
+		if (traveler.isNoFlyList()) {
+			throw new NoFlyListException();
+		}
+		if (traveler.getCovidResults().getCovidPositive()) {
+
+			throw new InfectionException();
+		}
+		if (requireCovidTest) {
+			testDateValidation(traveler);
+		}
+		else  isAllowed = true;
 	}
+
 }

@@ -96,6 +96,7 @@ class DestinationTest {
 		traveler.setNoFlyList(false);
 		covidResults.generateTest();
 		traveler.setCovidResults(covidResults);
+		System.out.println(covidResults.getCovidPositive());
 		destination.setRequireCovidTest(true);
 
 		//automatically enter 5 as my input
