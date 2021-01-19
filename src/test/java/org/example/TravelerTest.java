@@ -1,8 +1,13 @@
 package org.example;
 
+import org.example.exception.InfectTestDateException;
+import org.example.exception.TravelerRejectionException;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class TravelerTest {
@@ -10,6 +15,7 @@ public class TravelerTest {
 	private Traveler traveler = new Traveler();
 	private Destination destination1 = new Destination();
 	private Destination destination2 = new Destination();
+	private CovidResults covidResults = new CovidResults();
 
 	@Test
 	public void setName() {
@@ -62,7 +68,58 @@ public class TravelerTest {
 	}
 
 	@Test
-	public void bookATrip() {
+	public void bookATripException(){
+
+		//automatically enter 5 as my input
+		String input = "5";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		traveler.setMoney(2600.00);
+		destination1.setCostPerMile(100.00);
+		destination1.setDistance(26.00);
+		traveler.setNoFlyList(false);
+		covidResults.generateTest();
+		traveler.setCovidResults(covidResults);
+		destination1.setRequireCovidTest(true);
+
+		Assertions.assertThrows(TravelerRejectionException.class,
+				()->traveler.bookATrip(destination1));
+	}
+
+	@Test
+	public void bookATripList() throws TravelerRejectionException {
+		//automatically enter 1 as my input of last test date
+		String input = "1";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+
+		//setting traveler affordable expenses
+		traveler.setMoney(2600.00);
+		destination1.setCostPerMile(100.00);
+		destination1.setDistance(25.00);
+
+		//traveler isNot on the lise
+		traveler.setNoFlyList(false);
+
+		//randomly generate results and prints out
+		//test pass only when true
+		covidResults.generateTest();
+		traveler.setCovidResults(covidResults);
+		System.out.println(covidResults.getCovidPositive());
+
+		//destination requires CovidTest
+		destination1.setRequireCovidTest(true);
+
+		//tracking list of places visited
+		ArrayList<Destination> places = new ArrayList<>();
+		traveler.setPlacesVisited(places);
+
+		traveler.bookATrip(destination1);
+
+		int expected = places.size();
+		int actual = traveler.getPlacesVisited().size();
+
+		Assert.assertEquals(expected,actual);
 
 	}
 }

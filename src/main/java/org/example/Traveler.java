@@ -1,10 +1,7 @@
 package org.example;
 
-import org.example.exception.InsufficientFundsException;
-import org.example.exception.TravelerRejectionException;
+import org.example.exception.*;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class Traveler {
@@ -69,6 +66,11 @@ public class Traveler {
 
 
 	public void bookATrip(Destination destination)throws TravelerRejectionException {
+
+		if(destination.isAllowed){
+			throw new TravelerRejectionException();
+		}else
+			placesVisited.add(destination);
 
 	}
 }
